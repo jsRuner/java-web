@@ -1,0 +1,57 @@
+#版本号
+version: "3"
+#服务
+services:
+    #mysql服务
+    db:
+      #服务器镜像
+     build: ./mysql
+     # image: mysql:latest
+     #磁盘映射。./db_data 是宿主的目录。后者是容器里的目录。
+     volumes:
+       - ./db_data:/var/lib/mysql
+       - ./logs/mysql:/var/log/mysql
+    #赋予mysql容器的root权限运行。
+     privileged: true
+     restart: always
+     # 端口映射。前者是宿主的。后者是容器里端口
+     ports:
+       - "3306:3306"
+     #环境变量
+     environment:
+      #mysql的root密码
+       MYSQL_ROOT_PASSWORD: 123456
+       #容器会创建的数据库
+       MYSQL_DATABASE: testdb
+       #test用户
+       MYSQL_USER: test
+       #test用户的密码
+       MYSQL_PASSWORD: 123456 
+    #tomcat服务
+    tomcat:
+     volumes:
+       - ./web_data/webapps:/usr/local/tomcat/webapps
+       - ./logs/tomcat:/usr/local/tomcat/logs
+      #依赖的服务。会在容器里的host文件里添加 一条记录。访问db，即可访问mysql的服务。
+     depends_on:
+       - db
+      #赋予容器root权限运行。
+     privileged: true
+     ports:
+       - "8080:8080"
+       #服务器镜像构建的目录。会在该目录下寻找dockerfile构建镜像。
+     build: ./tomcat
+     restart: always
+    #nginx服务
+    nginx:
+     depends_on:
+       - tomcat
+    #赋予容器的root权限运行。
+     privileged: true
+     volumes:
+       - ./web_data/web:/www/web
+       - ./logs/nginx:/var/log/nginx
+     build: ./nginx
+     ports:
+       - "80:80"
+     restart: always

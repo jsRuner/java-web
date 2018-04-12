@@ -1,63 +1,79 @@
 # lnmp
-lnmp的容器编排。极简、实用。
 
-实现对项目多个服务的编排：nginx、mysql、php-fpm。一键启动和销毁。支持配置的修改和日志的查看。方便开发和测试。
+java web的容器编排。多容器组合。
+
+实现对项目多个服务的编排：nginx、mysql、tomcat。一键启动和销毁。支持配置的修改和日志的查看。方便开发和测试。
 
 
-目前版本只合适作为日常开发和测试环境下的配置。生产环境下不宜,需要修改一些配置。
+# 结构
+- nginx容器负责前端web
+- tomcat负责后端接口
+- mysql 负责数据存储
 
-## 版本的选择
-- centos latest
+```	
+	.
+├── README.md
+├── db_data             mysql的数据存储目录
+├── docker-compose.yml
+├── logs    日志目录
+│   ├── mysql
+│   │   ├── error.log
+│   │   ├── mysql.log
+│   │   └── slow.log
+│   ├── nginx
+│   │   ├── access.log
+│   │   ├── error.log
+│   │   └── log
+│   │       └── host.access.log
+│   └── tomcat
+│       └── error.log
+├── mysql   mysql的配置和dockerfile
+│   ├── Dockerfile
+│   └── mysql.conf.d
+│       └── mysqld.cnf
+├── nginx   ngxinx的配置
+│   ├── Dockerfile
+│   ├── default.conf
+│   └── nginx.conf
+├── tomcat    tomcat的配置
+│   ├── Dockerfile
+│   ├── server.xml
+│   └── tomcat-users.xml
+└── web_data    项目代码
+    ├── web     前端代码。 
+    └── webapps   后端代码。建议放入war包。已经配置了自动解压war
+    
+```
+
+
+
+## 版本-最新版本。
+
 - nginx  latest
 - mysql  latest
-- php  latest
+- tomcat  latest
 
-## 相关命令
-这些命令是我在编写过程中经常使用到的。
-
-- 拷贝nginx的配置文件到 宿主电脑桌面。 347390c2dac2  是容器的id
+## 命令
 
 
-	```
-$ docker cp 347390c2dac2:/etc/nginx/nginx.conf /Users/ft521/Desktop
-
-	```
-- 拷贝php-fpm的配置文件到 宿主电脑桌面。 c85dbd08758e  是容器的id
-
-	```
-$ docker cp c85dbd08758e:/usr/local/etc/php-fpm.d/www.conf /Users/ft521/Desktop
-```
-- php 安装扩展。目前只安装了一个mysqli的扩展。其他扩展参考下面的地址。后续本版本也不断丰富。
-
- `https://store.docker.com/images/php`
-
-- 拷贝mysql的配置文件到宿主电脑桌面。3282f1a867db 是容器id
-```
-docker cp 3282f1a867db:/etc/mysql/mysql.conf.d/ /Users/ft521/Desktop
-```
-- 销毁创建的容器
-
-	```
-	docker-compose stop
-	docker-compose rm
-	```
-- 重新编译服务镜像
+- 编译服务
 
 	```
 	docker-compose build --force-rm --no-cache
 	
 	```
-- 重新启动服务
+- 启动服务
 
 	```
 	docker-compose up -d --force-recreate
 	
 	```
-- 进入容器内.例如进入 34aa的容器内
+
+- 停止服务
 
 	```
-docker exec 34aa  -it /bin/bash
-```
+	docker-compose stop
+	```
 - 查看某个容器的日志。查看34aa的容器运行的日志。
 
 	尤其容器启动失败的时候，很需要这个。
@@ -65,15 +81,11 @@ docker exec 34aa  -it /bin/bash
 	```
 	docker logs 34aa
 	```
-- 删除none的镜像
 
-	```
-	$ docker rmi --force $(docker images | grep none | awk '{print $3}')
-	```
-
-## 数据库
-- 测试数据库需要执行db.sql的语句。否则没有数据。
-- 外部工具连接容器数据库的配置是 127.0.0.1:3307    username=root  password=123456
+## 数据库的配置
+- 地址 127.0.0.1
+- 端口3306   
+- 用户 root/123456  test/123456
+- 数据库 testdb
 
 
-### [详细使用方法](https://www.jianshu.com/p/53183a475c1d)# java-web

@@ -1,0 +1,13 @@
+2018-01-22T01:35:50.804425Z	    3 Connect	test@172.19.0.3 on  using TCP/IP
+2018-01-22T01:35:50.804908Z	    3 Query	set names 'utf8'
+2018-01-22T01:35:50.806971Z	    3 Init DB	testdb
+2018-01-22T01:35:50.807328Z	    3 Query	select uid,username from user
+2018-01-22T01:35:50.811784Z	    3 Quit	
+mysqld, Version: 5.7.19-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+2018-01-22T09:38:16.299959+08:00	    2 Query	SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE CREATE_OPTIONS LIKE '%partitioned%';
+mysqld, Version: 5.7.19-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+2018-01-23T20:36:43.126110+08:00	    2 Query	SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE CREATE_OPTIONS LIKE '%partitioned%';
