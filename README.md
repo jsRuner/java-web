@@ -1,4 +1,4 @@
-# lnmp
+# java-web
 
 java web的容器编排。多容器组合。
 
@@ -81,6 +81,10 @@ java web的容器编排。多容器组合。
 	```
 	docker logs 34aa
 	```
+## 访问路径
+
+前端:localhost:80
+后端:localhost:8080/xx项目文件夹
 
 ## 数据库的配置
 - 地址 127.0.0.1
