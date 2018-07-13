@@ -9,9 +9,9 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ADD nginx.conf /etc/nginx/
 
 ADD default.conf /etc/nginx/conf.d
-
-
-ADD api.conf /etc/nginx/conf.d
+ADD tomcat.conf /etc/nginx/conf.d
+ADD phpredisadmin.conf /etc/nginx/conf.d
+ADD phpmyadmin.conf /etc/nginx/conf.d
 
 
 

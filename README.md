@@ -4,11 +4,17 @@ java web的容器编排。多容器组合。
 
 实现对项目多个服务的编排：nginx、mysql、tomcat。一键启动和销毁。支持配置的修改和日志的查看。方便开发和测试。
 
+实现脚本一键安装和启动。
+
 
 # 结构
-- nginx容器负责前端web
+- nginx容器负责代理请求。
+
 - tomcat负责后端接口
 - mysql 负责数据存储
+- phpmyadmin 负责操作数据库
+- phpredisadmin 负责管理redis
+- redis 负责缓存
 
 ```	
 	.
