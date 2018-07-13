@@ -50,7 +50,6 @@ services:
       restart: always
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
-      container_name: phpmyadmin
       environment:
         - PMA_ARBITRARY=1
       restart: always
@@ -79,7 +78,6 @@ services:
        - ./logs/nginx:/var/log/nginx
       build: ./nginx
       ports:
-       - "80:80"
        - "70:8080"
        - "71:80"
        - "72:80"
