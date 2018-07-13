@@ -78,7 +78,7 @@ services:
        - ./logs/nginx:/var/log/nginx
       build: ./nginx
       ports:
-       - "70:8080"
-       - "71:80"
-       - "72:80"
+       - "70:70"
+       - "71:71"
+       - "72:72"
       restart: always
